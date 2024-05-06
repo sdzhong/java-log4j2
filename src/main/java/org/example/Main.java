@@ -1,6 +1,7 @@
 package org.example;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import io.sentry.Sentry;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
@@ -17,6 +18,12 @@ public class Main {
             // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
             System.out.println("i = " + i);
             logger.info("i = " + i);
+        }
+
+        try {
+            throw new Exception("This is a test.");
+        } catch (Exception e) {
+            Sentry.captureException(e);
         }
     }
 }
